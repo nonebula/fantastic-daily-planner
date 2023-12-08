@@ -11,9 +11,9 @@ var timeBlockContainer = $("#timeblock-container")
 var timeTable = $("#time-table");
 // blocks for timeblock
 var timeBlock = $("#time-block");
-var contentBlock = $("#add-content");
+// var contentBlock = $("#add-content");
 var saveBlock = $("#save-block");
-var completeBlock = $("#complete-block");
+var completeBlock = $("#content-block");
 var clearBlock = $("#clear-block");
 
 // buttons
@@ -29,13 +29,27 @@ var tbody = $('.time-table tbody');
 
 for (var i = 0; i < businessHours.length; i++) {
     var newRow = $('<tr>');
-    newRow.append('<td class="time-block">' + businessHours[i] + '</td>');
-    newRow.append('<td class="col-md-7 add-content"><textarea></textarea></td>');
-    newRow.append('<td class="col-md-1 save-block"><button id ="save-button" class="btn btn-primary">Save</button></td>');
-    newRow.append('<td class="col-md-1 complete-block"><button id ="complete-button" class="btn btn-primary">Complete</button></td>');
-    newRow.append('<td class="col-md-1 clear-block"><button id = "clear-button" class="btn btn-primary">Clear</button></td>');
+    newRow.append('<td id="time-block" class="col-md-1">' + businessHours[i] + '</td>');
+    newRow.append('<td id="add-content" class="col-md-7 add-content"><textarea></textarea></td>');
+    newRow.append('<td id="save-block" class="col-md-1"><button id ="save-button" class="btn btn-primary"><i class="fas fa-save"></i>Save</button></td>');
+    newRow.append('<td id="complete-block" class="col-md-1"><button id ="complete-button" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>Complete</button></td>');
+    newRow.append('<td class="clear-block col-md-1"><button id="clear-button-' + businessHours[i] + '" class="btn btn-primary"><i class="fas fa-eraser"></i>Clear</button></td>');    
+// color coding based on time of day
+    var contentBlock = $("#add-content");
+
+    var currentHour = dayjs().format('HH:mm');
+
+    if (dayjs(businessHours[i], 'HH:mm').isBefore(currentHour, 'hour')){
+        contentBlock.addClass('past-row');
+    } else if (dayjs(businessHours[i], 'HH:mm').isSame(currentHour, 'hour')){
+        contentBlock.addClass('present-row');
+    }
+     else {
+        contentBlock.addClass('future-row');
+    }
+
+//final append of table & colors
     tbody.append(newRow);
 }
 });
-
 

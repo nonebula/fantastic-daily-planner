@@ -71,14 +71,14 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
-.past { 
+.past-row { 
   background-color: red; 
 }
 
-.present { 
+.present-row { 
   background-color: orange; 
 }
 
-.future { 
+.future-row { 
   background-color: green; 
 }
