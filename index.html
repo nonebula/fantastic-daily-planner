@@ -20,21 +20,50 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
-    <title>Work Day Scheduler</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Fantastic Daily Work Day Planner!</title>
   </head>
 
   <body>
     <header>
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
+      <h1 id="page-heading" class="display-3">Work Day Scheduler</h1>
+      <p id="page-subheading" class="lead">A simple calendar app for scheduling your work day</p>
+      <!-- display current day here -->
       <p id="currentDay" class="lead"></p>
     </header>
-    <div class="container">
+    <div id="timeblock-container" class="container">
       <!-- Timeblocks go here -->
-    </div>
-
+      <table class="time-table">
+        <thead>
+          <tr>
+            <th scope="col">Time of Day</th>
+            <th scope="col">Add Notes Here</th>
+            <th scope="col">Save</th>
+            <th scope="col">Mark Complete</th>
+            <th scope="col">Clear</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time-block">09:00</td>
+            <td class="add-content">
+              <textarea></textarea>
+            </td>
+            <td class="save-block">
+              <button class="btn btn-primary save-button">Save</button>
+            </td>
+            <td class="complete-block">
+              <button class="btn btn-primary complete-button">Complete</button>
+            </td>
+            <td class="clear-block">
+              <button class="btn btn-primary clear-button">Clear</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
