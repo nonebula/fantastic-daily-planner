@@ -71,3 +71,14 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
+.past { 
+  background-color: red; 
+}
+
+.present { 
+  background-color: orange; 
+}
+
+.future { 
+  background-color: green; 
+}
