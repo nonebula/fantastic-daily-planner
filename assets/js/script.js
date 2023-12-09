@@ -66,29 +66,13 @@ for (var i = 0; i < businessHours.length; i++) {
 }
 });
 
-
-
-// clear button
-function handleClearEntry(event) {
-    event.preventDefault();
-    var btnClicked = $(event.target);
-    var textarea = btnClicked.closest('tr').find('.add-content textarea');
-    textarea.val('');
-    textarea.css("text-decoration", "none");
-    console.log('Clear button clicked');
-}
-
 // save button
 function handleSaveEntry(event) {
-    var blockID = parseInt(
-        $(event.currentTarget)
-            .closest("tr") 
-            .find(".time-block")
-            .text().trim()
-    );
+    var saveButton = $(event.currentTarget);
+    var blockID = saveButton.closest("tr").find(".time-block").index();
 
     var userEntry = $.trim(
-        $(event.currentTarget)
+        saveButton
             .closest("tr")
             .find(".add-content textarea")
             .val()
@@ -100,8 +84,6 @@ function handleSaveEntry(event) {
     console.log("Input Saved");
 }
   
-
-
 // complete button
 function handleCompleteEntry(event) {
     event.preventDefault();
@@ -109,6 +91,16 @@ function handleCompleteEntry(event) {
     var textarea = btnClicked.closest('tr').find('.add-content textarea');
     textarea.css("text-decoration", "line-through");
     console.log("Task Completed!");
+}
+
+// clear button
+function handleClearEntry(event) {
+    event.preventDefault();
+    var btnClicked = $(event.target);
+    var textarea = btnClicked.closest('tr').find('.add-content textarea');
+    textarea.val('');
+    textarea.css("text-decoration", "none");
+    console.log('Clear button clicked');
 }
 
 var mainBody = $("body");
