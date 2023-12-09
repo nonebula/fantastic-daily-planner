@@ -24,17 +24,27 @@ var saveButton = $("#save-button");
 var completeButton = $("#complete-button");
 var clearButton = $(".clear-button");
 
+var savedInput;
+
+// local storage check
+var workDay = JSON.parse(localStorage.getItem("userInput"));
+if (workDay) {
+    savedInput = workDay;
+} else {
+    savedInput = [];
+}
+
 // table body content
 $(document).ready(function () {
 var businessHours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
 
 var tbody = $('.time-table tbody');
 
-//match variables above to these, see task 7 for model of how to tidy this area up
+// match variables above to these, see task 7 for model of how to tidy this area up
 for (var i = 0; i < businessHours.length; i++) {
     var newRow = $('<tr>');
     newRow.append('<td class="time-block col-md-1">' + businessHours[i] + '</td>');
-    var addContentCell = $('<td class="add-content"><textarea></textarea></td>');
+    var addContentCell = $('<td class="add-content"><textarea>' + (savedInput[i] || '') + '</textarea></td>');
     newRow.append(addContentCell);
     newRow.append('<td class="save-block col-md-1"><button class="save-button btn btn-primary"><i class="fas fa-save"></i>Save</button></td>');
     newRow.append('<td class="complete-block col-md-1"><button class="complete-button btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>Complete</button></td>');
@@ -70,12 +80,27 @@ function handleClearEntry(event) {
 
 // save button
 function handleSaveEntry(event) {
-    event.preventDefault();
-    var userInput = $(".content textarea").val();
-    localStorage.setItem("textData", userInput);
+    var blockID = parseInt(
+        $(event.currentTarget)
+            .closest("tr") 
+            .find(".time-block")
+            .text().trim()
+    );
+
+    var userEntry = $.trim(
+        $(event.currentTarget)
+            .closest("tr")
+            .find(".add-content textarea")
+            .val()
+    );
+
+    savedInput[blockID] = userEntry;
+
+    localStorage.setItem("userInput", JSON.stringify(savedInput));
     console.log("Input Saved");
-  }
+}
   
+
 
 // complete button
 function handleCompleteEntry(event) {
