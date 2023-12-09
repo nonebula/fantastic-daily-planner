@@ -82,3 +82,7 @@ header {
 .future-row { 
   background-color: green; 
 }
+
+.add-content textarea {
+  width: 100%;
+}

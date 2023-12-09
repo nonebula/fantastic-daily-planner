@@ -16,10 +16,13 @@ var saveBlock = $("#save-block");
 var completeBlock = $("#content-block");
 var clearBlock = $("#clear-block");
 
+var currentTime = dayjs().format("HH:mm");
+
+
 // buttons
 var saveButton = $("#save-button");
 var completeButton = $("#complete-button");
-var clearButton = $("#clear-button");
+var clearButton = $(".clear-button");
 
 // table body content
 $(document).ready(function () {
@@ -27,29 +30,63 @@ var businessHours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:0
 
 var tbody = $('.time-table tbody');
 
+//match variables above to these, see task 7 for model of how to tidy this area up
 for (var i = 0; i < businessHours.length; i++) {
     var newRow = $('<tr>');
-    newRow.append('<td id="time-block" class="col-md-1">' + businessHours[i] + '</td>');
-    newRow.append('<td id="add-content" class="col-md-7 add-content"><textarea></textarea></td>');
-    newRow.append('<td id="save-block" class="col-md-1"><button id ="save-button" class="btn btn-primary"><i class="fas fa-save"></i>Save</button></td>');
-    newRow.append('<td id="complete-block" class="col-md-1"><button id ="complete-button" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>Complete</button></td>');
-    newRow.append('<td class="clear-block col-md-1"><button id="clear-button-' + businessHours[i] + '" class="btn btn-primary"><i class="fas fa-eraser"></i>Clear</button></td>');    
-// color coding based on time of day
-    var contentBlock = $("#add-content");
+    newRow.append('<td class="time-block col-md-1">' + businessHours[i] + '</td>');
+    var addContentCell = $('<td class="add-content"><textarea></textarea></td>');
+    newRow.append(addContentCell);
+    newRow.append('<td class="save-block col-md-1"><button class="save-button btn btn-primary"><i class="fas fa-save"></i>Save</button></td>');
+    newRow.append('<td class="complete-block col-md-1"><button class="complete-button btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>Complete</button></td>');
+    newRow.append('<td class="clear-block col-md-1"><button class="clear-button btn btn-primary"><i class="fas fa-eraser"></i>Clear</button></td>');
+    // color coding based on time of day
+    var contentBlock = addContentCell.find('textarea');
 
-    var currentHour = dayjs().format('HH:mm');
-
-    if (dayjs(businessHours[i], 'HH:mm').isBefore(currentHour, 'hour')){
+    if (dayjs(businessHours[i], 'HH:mm').isBefore(currentTime, 'hour')){
         contentBlock.addClass('past-row');
-    } else if (dayjs(businessHours[i], 'HH:mm').isSame(currentHour, 'hour')){
+    } else if (dayjs(businessHours[i], 'HH:mm').isSame(currentTime, 'hour')){
         contentBlock.addClass('present-row');
     }
      else {
         contentBlock.addClass('future-row');
     }
 
-//final append of table & colors
+// final append of table & colors
     tbody.append(newRow);
 }
 });
 
+
+
+// clear button
+function handleClearEntry(event) {
+    event.preventDefault();
+    var btnClicked = $(event.target);
+    var textarea = btnClicked.closest('tr').find('.add-content textarea');
+    textarea.val('');
+    textarea.css("text-decoration", "none");
+    console.log('Clear button clicked');
+}
+
+// save button
+function handleSaveEntry(event) {
+    event.preventDefault();
+    var userInput = $(".content textarea").val();
+    localStorage.setItem("textData", userInput);
+    console.log("Input Saved");
+  }
+  
+
+// complete button
+function handleCompleteEntry(event) {
+    event.preventDefault();
+    var btnClicked = $(event.target);
+    var textarea = btnClicked.closest('tr').find('.add-content textarea');
+    textarea.css("text-decoration", "line-through");
+    console.log("Task Completed!");
+}
+
+var mainBody = $("body");
+    $(document).on('click', '.clear-button', handleClearEntry);
+    $(document).on('click', '.save-button', handleSaveEntry);
+    $(document).on('click', '.complete-button', handleCompleteEntry);
