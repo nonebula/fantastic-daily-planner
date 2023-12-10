@@ -1,25 +1,21 @@
 var today = dayjs().format("dddd DD MMMM YYYY");
 $("#currentDay").text(today);
 
-var rootEl = $('#root');
-
 var pageHeading = $("#page-heading");
 var subHeading = $("#page-subheading");
 var dateDisplay = $("#currentDay");
 var timeBlockContainer = $("#timeblock-container")
-// all classes not ids from here, could be an issue [check]!
 var timeTable = $("#time-table");
+
 // blocks for timeblock
 var timeBlock = $("#time-block");
-// var contentBlock = $("#add-content");
+var contentBlock = $("#add-content");
 var saveBlock = $("#save-block");
-var completeBlock = $("#content-block");
-var clearBlock = $("#clear-block");
 
 // buttons
 var saveButton = $("#save-button");
-var completeButton = $("#complete-button");
-var clearButton = $(".clear-button");
+// var completeButton = $("#complete-button");
+// var clearButton = $(".clear-button");
 
 var savedInput;
 
@@ -33,33 +29,35 @@ if (workDay) {
 
 // table body content
 $(document).ready(function () {
-var businessHours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
+var businessHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
 var tbody = $('.time-table tbody');
 
-var currentTime = dayjs().format("HH:mm");
+var currentTime = dayjs().hour();
 
-// match variables above to these, see task 7 for model of how to tidy this area up
 for (var i = 0; i < businessHours.length; i++) {
-    var newRow = $('<tr>');
-    newRow.append('<td class="time-block col-md-1">' + businessHours[i] + '</td>');
-    // newRow.append('<td class="add-content"><textarea>' + (savedInput[i] || '') + '</textarea></td>');
+    var newRow = $('<tr id='+ businessHours[i] + ' >');
+    newRow.append('<td class="time-block col-md-1">' + businessHours[i] + ":00" + '</td>');
     var addContentCell = $('<td class="add-content"><textarea>' + (savedInput[i] || '') + '</textarea></td>');
     newRow.append(addContentCell);
     newRow.append('<td class="save-block col-md-1"><button class="save-button btn btn-primary"><i class="fas fa-save"></i></button></td>');
+    
+    // Additional buttons that could be added in future
     // newRow.append('<td class="complete-block col-md-1"><button class="complete-button btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i></button></td>');
     // newRow.append('<td class="clear-block col-md-1"><button class="clear-button btn btn-primary"><i class="fas fa-eraser"></i></button></td>');
+    
     // color coding based on time of day
     var contentBlock = newRow.find('.add-content textarea');
-
-    if (dayjs(businessHours[i], 'HH:mm').isBefore(currentTime, 'hour')){
+// == <=
+    // console.log(businessHours[i]); 
+    // console.log(currentTime);
+    if (businessHours[i] < currentTime) {
+        // console.log('past');
         contentBlock.addClass('past-row');
-    } else if (dayjs(businessHours[i], 'HH:mm').isSame(currentTime, 'hour')){
-        
+    } else if (businessHours[i] === currentTime) {
+        // console.log('present');
         contentBlock.addClass('present-row');
-    }
-     else {
-        
+    } else {
         contentBlock.addClass('future-row');
     }
 
@@ -69,17 +67,19 @@ for (var i = 0; i < businessHours.length; i++) {
 });
 
 // save button
-//needs work and refinement
 function handleSaveEntry(event) {
     var saveButton = $(event.currentTarget);
-    var blockID = saveButton.closest("tr").find(".time-block").index();
+    console.log(saveButton);
+    var blockID = saveButton.closest("tr").attr("id");
+    console.log(blockID);
 
     var userEntry = $.trim(
-        saveButton
-            .closest("tr")
-            .find(".add-content textarea")
-            .val()
+        saveButton.parent().siblings("textarea").val()
+        // .closest("tr").find(".add-content textarea").val()
     );
+
+
+console.log(userEntry);
 
     savedInput[blockID] = userEntry;
 
@@ -87,7 +87,8 @@ function handleSaveEntry(event) {
     console.log("Input Saved");
 }
   
-// complete button
+// Possible future button functions
+/* // complete button
 function handleCompleteEntry(event) {
     event.preventDefault();
     var btnClicked = $(event.target);
@@ -104,9 +105,11 @@ function handleClearEntry(event) {
     textarea.val('');
     textarea.css("text-decoration", "none");
     console.log('Clear button clicked');
-}
+} */
 
 var mainBody = $("body");
-    $(document).on('click', '.clear-button', handleClearEntry);
     $(document).on('click', '.save-button', handleSaveEntry);
-    $(document).on('click', '.complete-button', handleCompleteEntry);
+
+// Possible future function calls
+    // $(document).on('click', '.complete-button', handleCompleteEntry);
+    // $(document).on('click', '.clear-button', handleClearEntry);

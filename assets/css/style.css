@@ -50,12 +50,12 @@ header {
 }
 
 .past-row {
-  background-color: red;
+  background-color: grey;
   color: white;
 }
 
 .present-row {
-  background-color: orange;
+  background-color: red;
   color: white;
 }
 
@@ -64,7 +64,7 @@ header {
   color: white;
 }
 
-.saveBtn {
+.save-button {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -72,35 +72,7 @@ header {
   color: white;
 }
 
-.saveBtn i:hover {
+.save-button i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
-}
-
-/* sizing needs sorting here */
-.save-button {
-  background-color: navy;
-  border-color: navy;
-  display: flex;
-  height: 50px;
-  width: 50px;
-  justify-content: center;
-}
-
-.complete-button {
-  background-color: green;
-  border-color: green;
-  display: flex;
-  height: 50px;
-  width: 50px;
-  justify-content: center;
-}
-
-.clear-button {
-  background-color: red;
-  border-color: red;
-  display: flex;
-  height: 50px;
-  width: 50px;
-  justify-content: center;
 }
