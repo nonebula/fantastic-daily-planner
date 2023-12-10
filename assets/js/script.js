@@ -38,7 +38,7 @@ var currentTime = dayjs().hour();
 for (var i = 0; i < businessHours.length; i++) {
     var newRow = $('<tr id='+ businessHours[i] + ' >');
     newRow.append('<td class="time-block col-md-1">' + businessHours[i] + ":00" + '</td>');
-    var addContentCell = $('<td class="add-content"><textarea>' + (savedInput[i] || '') + '</textarea></td>');
+    var addContentCell = $('<td class="add-content"><textarea>' + (savedInput[businessHours[i]] || '') + '</textarea></td>');
     newRow.append(addContentCell);
     newRow.append('<td class="save-block col-md-1"><button class="save-button btn btn-primary"><i class="fas fa-save"></i></button></td>');
     
@@ -48,9 +48,7 @@ for (var i = 0; i < businessHours.length; i++) {
     
     // color coding based on time of day
     var contentBlock = newRow.find('.add-content textarea');
-// == <=
-    // console.log(businessHours[i]); 
-    // console.log(currentTime);
+
     if (businessHours[i] < currentTime) {
         // console.log('past');
         contentBlock.addClass('past-row');
@@ -78,31 +76,18 @@ function handleSaveEntry(event) {
             .find("textarea")
             .val()
     );
+
+    blockID = parseInt(blockID);
     savedInput[blockID] = userEntry;
     localStorage.setItem("userInput", JSON.stringify(savedInput));
-    console.log(savedInput)
-    console.log("Input Saved");
+    if (!isNaN(blockID) && blockID >= 8 && blockID <= 18) {
 }
-// function handleSaveEntry(event) {
-//     var saveButton = $(event.currentTarget);
-//     console.log(saveButton);
-//     var blockID = saveButton.closest("tr").attr("id");
-//     console.log(blockID);
+}
 
-//     var userEntry = $.trim(
-//         saveButton.closest("tr").find(".add-content textarea").val()
-//     );
+// console.log(savedInput)
+// console.log("Input Saved");
 
-//     var savedInput;
 
-// console.log(userEntry);
-
-//     savedInput[blockID] = userEntry;
-
-//     localStorage.setItem("userInput", JSON.stringify(savedInput));
-//     console.log("Input Saved");
-// }
-  
 // Possible future button functions
 /* // complete button
 function handleCompleteEntry(event) {
