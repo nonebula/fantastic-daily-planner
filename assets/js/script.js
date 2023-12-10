@@ -70,23 +70,38 @@ for (var i = 0; i < businessHours.length; i++) {
 // save button
 function handleSaveEntry(event) {
     var saveButton = $(event.currentTarget);
-    console.log(saveButton);
     var blockID = saveButton.closest("tr").attr("id");
-    console.log(blockID);
 
     var userEntry = $.trim(
-        saveButton.closest("tr").find(".add-content textarea").val()
+        $(event.currentTarget)
+            .closest("tr")
+            .find("textarea")
+            .val()
     );
-
-    var savedInput;
-
-console.log(userEntry);
-
     savedInput[blockID] = userEntry;
-
     localStorage.setItem("userInput", JSON.stringify(savedInput));
+    console.log(savedInput)
     console.log("Input Saved");
 }
+// function handleSaveEntry(event) {
+//     var saveButton = $(event.currentTarget);
+//     console.log(saveButton);
+//     var blockID = saveButton.closest("tr").attr("id");
+//     console.log(blockID);
+
+//     var userEntry = $.trim(
+//         saveButton.closest("tr").find(".add-content textarea").val()
+//     );
+
+//     var savedInput;
+
+// console.log(userEntry);
+
+//     savedInput[blockID] = userEntry;
+
+//     localStorage.setItem("userInput", JSON.stringify(savedInput));
+//     console.log("Input Saved");
+// }
   
 // Possible future button functions
 /* // complete button
