@@ -66,6 +66,7 @@ for (var i = 0; i < businessHours.length; i++) {
 }
 });
 
+
 // save button
 function handleSaveEntry(event) {
     var saveButton = $(event.currentTarget);
@@ -74,10 +75,10 @@ function handleSaveEntry(event) {
     console.log(blockID);
 
     var userEntry = $.trim(
-        saveButton.parent().siblings("textarea").val()
-        // .closest("tr").find(".add-content textarea").val()
+        saveButton.closest("tr").find(".add-content textarea").val()
     );
 
+    var savedInput;
 
 console.log(userEntry);
 

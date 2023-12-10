@@ -70,6 +70,8 @@ header {
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
   color: white;
+  height: 95px;
+  width: 80px;
 }
 
 .save-button i:hover {
