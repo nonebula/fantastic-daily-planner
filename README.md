@@ -27,7 +27,7 @@ If you encounter any issues or have questions, please refer to the documentation
 ## Usage 
 The page demonstrates full functionality. Click on any of the text areas to add your own tasks and notes for the day. The colors of the webpage will change as time passes throughout the day. Grey means the hour has passed, red indicated present and green indicates the future. All text will be removed from the page if you do not click the 'save' icon, so make sure to save any progress!
 
-![Website Screenshot](./assets/images/home.png)
+![Website Screenshot](./assets/images/pagess.png)
 
 ## Credits
 
